@@ -10,15 +10,18 @@
 
 Pixy is a gamified financial manager for both people and business.
 
+### See Online
+[Pixy Site](https://pixy-five.vercel.app/)
+
 ### Project Roadmap
 
 The project is yet in development. See the roadmap below:
 
 - [ ]  Phase 1
-    - [ ]  1.1
+    - [X]  1.1
         - [X]  Create Logo
-        - [ ]  Create minimal landing page
-        - [ ]  Deploy on vercel
+        - [X]  Create minimal landing page
+        - [X]  Deploy on vercel
     - [ ]  1.2
         - [ ]  Define mocked user and it's data
         - [ ]  Create responsive pages
