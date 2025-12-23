@@ -25,7 +25,7 @@ export default function Header(): JSX.Element {
     }, [isMenuOpen]);
 
     return (
-        <header className="sticky top-0 z-50 w-full bg-secondary/95 backdrop-blur-sm shadow-md border-b border-white/10">
+        <header className="w-full bg-secondary backdrop-blur-sm shadow-md border-b border-white/10">
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                 <div className="flex justify-between items-center h-20">
                     <div className="flex items-center md:hidden">
