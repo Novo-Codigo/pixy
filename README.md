@@ -23,7 +23,8 @@ The project is yet in development. See the roadmap below:
         - [ ]  Define mocked user and it's data
         - [ ]  Create responsive pages
             - [ ]  Main page
-            - [ ]  User page
+            - [X]  User page
+            - [X]  Setup
             - [ ]  About
         - [ ]  Create a dashboard to display mocked financial data
 - [ ]  Phase 2
