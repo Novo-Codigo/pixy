@@ -10,9 +10,9 @@ export default function ProfilePage() {
   }
 
   return (
-    <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-8 md:py-12">
+    <div className="bg-linear-to-br from-gray-900 via-gray-800 to-gray-900 w-full min-h-screen mx-auto px-4 sm:px-6 lg:px-8 py-8 md:py-12">
         {/* Profile Header Card */}
-        <div className="bg-secondary/40 backdrop-blur-sm rounded-2xl shadow-xl border border-white/10 overflow-hidden mb-8">
+        <div className="bg-secondary/40 backdrop-blur-sm rounded-2xl shadow-xl border border-white/10 overflow-hidden mb-8 max-w-[80%] mx-auto">
           <div className="h-32 md:h-48 bg-linear-to-l from-primary to-secondary" />
 
           {/* Profile Info */}
@@ -41,7 +41,7 @@ export default function ProfilePage() {
         </div>
 
         {/* Details Grid */}
-        <div className="grid md:grid-cols-2 gap-6">
+        <div className="grid md:grid-cols-2 gap-6 max-w-[80%] mx-auto">
           {/* Contact Information */}
           <div className="bg-secondary backdrop-blur-sm rounded-2xl shadow-xl border border-white/10 p-6 md:p-8">
             <h2 className="text-xl font-bold text-white mb-6">Informações</h2>
