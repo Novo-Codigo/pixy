@@ -20,13 +20,15 @@ The project is yet in development. See the roadmap below:
         - [X]  Create minimal landing page
         - [X]  Deploy on vercel
     - [ ]  1.2
-        - [ ]  Define mocked user and it's data
         - [ ]  Create responsive pages
             - [ ]  Main page
+                - [ ]  Create a dashboard to display mocked financial data
+                - [X]  Define mocked user and it's data
             - [X]  User page
+                - [X]  Define mocked user and it's data
             - [X]  Setup
+                - [X]  Define mocked user and it's data
             - [ ]  About
-        - [ ]  Create a dashboard to display mocked financial data
 - [ ]  Phase 2
 - [ ]  Phase 3
 - [ ]  Phase 4
