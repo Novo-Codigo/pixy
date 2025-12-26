@@ -168,11 +168,11 @@ export default function Home() {
                         <div className="flex flex-col items-center justify-between mb-2">
                             <h3 className="text-gray-200 bg-primary/50 text-xl font-medium border border-white/20 shadow-lg rounded-2xl px-4 py-2 mb-4">Evolução de Receita</h3>
                             
-                            <div className="flex flex-col gap-y-4 flex-nowrap my-4 w-full px-4">
+                            <div className="flex flex-col md:flex-row gap-y-4 flex-nowrap my-4 w-full pl-4 md:px-4 md:justify-between md:items-center">
                                 <select
                                     value={period}
                                     onChange={(e) => setPeriod(e.target.value as Period)}
-                                    className="text-xs mr-4 bg-gray-500/50 text-white rounded-lg p-2"
+                                    className="text-xs mr-4 bg-gray-500/50 text-white rounded-lg p-2 md:text-lg"
                                 >
                                     <option value="7D">Últimos 7 dias</option>
                                     <option value="15D">Últimos 15 dias</option>
@@ -197,14 +197,16 @@ export default function Home() {
                                 <div className="flex flex-row flex-nowrap gap-x-4">
                                     <button
                                         type="button"
-                                        className={`text-white bg-gray-500/50 rounded-lg p-2 text-xs shadow-md ${mode === "DETAILED" ? "bg-gray-600/30 text-white/50": ""}`}
+                                        className="text-white bg-gray-500/50 rounded-lg p-2 text-xs shadow-md disabled:bg-gray-600/30 disabled:text-white/50 disabled:cursor-not-allowed hover:cursor-pointer md:text-sm"
+                                        disabled={mode === "DETAILED"}
                                         onClick={() => { setMode("DETAILED") }}
                                     >
                                         DETALHADO
                                     </button>
                                     <button
                                         type="button"
-                                        className={`text-white bg-gray-500/50 rounded-lg p-2 text-xs shadow-md ${mode === "SUMMARY" ? "bg-gray-600/30 text-white/50": ""}`}
+                                        className="text-white bg-gray-500/50 rounded-lg p-2 text-xs shadow-md disabled:bg-gray-600/30 disabled:text-white/50 disabled:cursor-not-allowed hover:cursor-pointer md:text-sm"
+                                        disabled={mode === "SUMMARY"}
                                         onClick={() => { setMode("SUMMARY") }}
                                     >
                                         RESUMIDO
