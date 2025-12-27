@@ -1,7 +1,17 @@
 import { CartesianGrid, Line, LineChart, ResponsiveContainer, Tooltip, XAxis, YAxis } from "recharts";
-import type ChartComponentProps from "../interfaces/chart";
 
-export default function LineChartComponent({data, mode}: ChartComponentProps) {
+interface LineChartComponentProps {
+    data: Array<{
+        date: string;
+        income: number;
+        expense: number;
+        balance: number;
+        displayDate: string;
+    }>;
+    mode: 'DETAILED' | 'SUMMARY';
+}
+
+export default function LineChartComponent({data, mode}: LineChartComponentProps) {
     return (
         <div className="w-full h-96 overflow-x-auto">
             <ResponsiveContainer>
