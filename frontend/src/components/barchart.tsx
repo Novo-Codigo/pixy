@@ -3,7 +3,7 @@ import { Bar, BarChart, CartesianGrid, Cell, ResponsiveContainer, Tooltip, XAxis
 interface BarChartComponentProps {
     data: Array<{
         name: string;
-        totalExpense: number;
+        total: number;
     }>;
 }
 
@@ -18,7 +18,7 @@ export default function BarChartComponent({ data }: BarChartComponentProps) {
                     <XAxis dataKey={"name"} />
                     <YAxis />
                     <Tooltip cursor={{ fillOpacity: 0 }} />
-                    <Bar dataKey="totalExpense" fill="#ef5350" name="Despesas" radius={[4, 4, 0, 0]}>
+                    <Bar dataKey="total" fill="#ef5350" name="Despesas" radius={[4, 4, 0, 0]}>
                         {data.map((_, index) => (
                             <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
                         ))}

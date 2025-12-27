@@ -23,11 +23,14 @@ The project is yet in development. See the roadmap below:
         - [ ]  Create responsive pages
             - [ ]  Main page
                 - [ ]  Create a dashboard to display mocked financial data
-                - [X]  Define mocked user and it's data
+                - [X]  Define mocked data
             - [X]  User page
                 - [X]  Define mocked user and it's data
             - [X]  Setup
-                - [X]  Define mocked user and it's data
+                - [X]  Define mocked data
+            - [ ]  Ranking
+                - [ ] Define mocked user and it's data
+                - [ ] Define ranking system
             - [ ]  About
 - [ ]  Phase 2
 - [ ]  Phase 3
