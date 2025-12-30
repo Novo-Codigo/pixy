@@ -6,6 +6,7 @@ import ProfilePage from './pages/profile.tsx'
 import SetupPage from './pages/setup.tsx'
 import Home from './index.tsx'
 import App from './_layout.tsx'
+import { About } from './pages/about.tsx'
 
 const router = createBrowserRouter([
   {
@@ -19,6 +20,10 @@ const router = createBrowserRouter([
   {
     path: '/setup',
     element: <SetupPage />
+  },
+  {
+    path: '/about',
+    element: <About />
   },
 ])
 
