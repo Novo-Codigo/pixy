@@ -1,7 +1,7 @@
 import { useMemo, useState } from "react";
 import { differenceInDays, format, parseISO } from "date-fns";
-import BarChartComponent from "./components/barchart";
-import LineChartComponent from "./components/linechart";
+import BarChartComponent from "./recharts/components/barchart";
+import LineChartComponent from "./recharts/components/linechart";
 
 export const transactions = [
     // ===== 2020 =====

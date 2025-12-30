@@ -1,6 +1,6 @@
 import type { ReactNode } from "react";
-import Footer from "./components/footer";
-import Header from "./components/header";
+import Footer from "./core/components/footer";
+import Header from "./core/components/header";
 
 export default function App({ children } : { children: ReactNode }) {
   return (
