@@ -21,8 +21,8 @@ The project is yet in development. See the roadmap below:
         - [X]  Deploy on vercel
     - [ ]  1.2
         - [ ]  Create responsive pages
-            - [ ]  Main page
-                - [ ]  Create a dashboard to display mocked financial data
+            - [X]  Main page
+                - [X]  Create a dashboard to display mocked financial data
                 - [X]  Define mocked data
             - [X]  User page
                 - [X]  Define mocked user and it's data
@@ -31,7 +31,7 @@ The project is yet in development. See the roadmap below:
             - [ ]  Ranking
                 - [ ] Define mocked user and it's data
                 - [ ] Define ranking system
-            - [ ]  About
+            - [X]  About
 - [ ]  Phase 2
 - [ ]  Phase 3
 - [ ]  Phase 4

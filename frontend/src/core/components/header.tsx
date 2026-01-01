@@ -46,6 +46,7 @@ export default function Header(): JSX.Element {
                         <nav className="hidden md:flex ml-10 space-x-8">
                             <NavLink href="/">INÍCIO</NavLink>
                             <NavLink href="/setup">MEU MÊS</NavLink>
+                            <NavLink href="/progress">MEU PROGRESSO</NavLink>
                             <NavLink href="/about">SOBRE</NavLink>
                         </nav>
                     </div>
