@@ -1,8 +1,8 @@
 import { FaUser } from "react-icons/fa6";
-import Disciplina from "/disciplina.png";
-import Indeciso from "/indeciso.png";
-import Pinga from "/pinga.png";
-import Troco from "/troco.png";
+import Disciplina from "/public/disciplina.png";
+import Indeciso from "/public/indeciso.png";
+import Pinga from "/public/pinga.png";
+import Troco from "/public/troco.png";
 import { useState } from "react";
 import { CgClose } from "react-icons/cg";
 

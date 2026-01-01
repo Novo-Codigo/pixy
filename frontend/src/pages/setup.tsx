@@ -1,26 +1,29 @@
 "use client"
 
-import { useState } from "react"
-import { FaPlus } from "react-icons/fa6"
-import { IoCartOutline, IoDocumentTextOutline } from "react-icons/io5"
-import { MdOutlineAttachMoney } from "react-icons/md"
-import { RiDeleteBin6Line } from "react-icons/ri"
+import { useState } from "react";
+import { FaPlus } from "react-icons/fa6";
+import {
+    IoCartOutline,
+    IoDocumentTextOutline
+} from "react-icons/io5";
+import { MdOutlineAttachMoney } from "react-icons/md";
+import { RiDeleteBin6Line } from "react-icons/ri";
 
 type Income = {
-  id: string
-  amount: number
-  description: string
-  date: string
-  type: "monthly" | "extra"
+    id: string
+    amount: number
+    description: string
+    date: string
+    type: "monthly" | "extra"
 }
 
 type Expense = {
-  id: string
-  amount: number
-  description: string
-  date: string
-  category: string
-  recurring: boolean
+    id: string
+    amount: number
+    description: string
+    date: string
+    category: string
+    recurring: boolean
 }
 
 type PastIncome = {

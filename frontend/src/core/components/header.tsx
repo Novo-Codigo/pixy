@@ -1,8 +1,13 @@
 import { GiHamburgerMenu } from "react-icons/gi";
 import { FaUser } from "react-icons/fa";
 import { IoMdClose } from "react-icons/io";
-import PixyLogo from "/pixy.webp";
-import { useState, useEffect, type ReactNode, type JSX } from "react";
+import PixyLogo from "/public/pixy.webp";
+import {
+    useState,
+    useEffect,
+    type ReactNode,
+    type JSX
+} from "react";
 
 interface NavProps {
     href: string;
