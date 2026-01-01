@@ -4,7 +4,7 @@ import {
     FaLinkedin,
     FaGithub
 } from "react-icons/fa";
-import PixyLogo from "/public/pixy.webp";
+import PixyLogo from "/pixy.webp";
 import { type JSX, type ReactNode } from "react";
 
 interface FooterLinkProps {

@@ -1,4 +1,4 @@
-import PixyLogo from "/public/pixy.webp";
+import PixyLogo from "/pixy.webp";
 
 export function About() {
     return (

@@ -1,7 +1,7 @@
 import { GiHamburgerMenu } from "react-icons/gi";
 import { FaUser } from "react-icons/fa";
 import { IoMdClose } from "react-icons/io";
-import PixyLogo from "/public/pixy.webp";
+import PixyLogo from "/pixy.webp";
 import {
     useState,
     useEffect,
