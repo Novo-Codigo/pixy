@@ -28,9 +28,11 @@ The project is yet in development. See the roadmap below:
                 - [X]  Define mocked user and it's data
             - [X]  Setup
                 - [X]  Define mocked data
+                - [ ]  Custom Achievements System
             - [ ]  Ranking
-                - [ ] Define mocked user and it's data
-                - [ ] Define ranking system
+                - [ ] Journey System
+                - [X] Ranking system
+                - [X] Bagde System
             - [X]  About
 - [ ]  Phase 2
 - [ ]  Phase 3
