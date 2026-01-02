@@ -159,21 +159,28 @@ export default function Home() {
     }, [categoryPeriod])
 
     return (
-        <div className="min-h-screen bg-linear-to-br from-gray-900 via-gray-800 to-gray-900 pb-12">
+        <div className="min-h-screen bg-linear-to-br from-primary via-secondary to-primary pb-12">
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 md:py-12">
+                <div className="bg-gray-800/40 backdrop-blur-sm rounded-2xl shadow-xl border border-white/10 py-6 px-2 md:p-6 mb-8">
+                    <div className="flex flex-col mb-2">
+                        <h3 className="text-gray-200 text-xl font-medium py-2 mb-1">Saldo Atual</h3>
+                        <p className="text-2xl font-bold text-white">R$ 90,00</p>
+                    </div>
+                </div>
+
                 <h1 className="text-3xl md:text-4xl font-bold text-white mb-8">Resumo</h1>
                 <div className="flex flex-col gap-6 mb-8">
                     
                     {/* --- GRÁFICO DE LINHA --- */}
-                    <div className="bg-gray-800/40 backdrop-blur-sm rounded-2xl shadow-xl border border-white/10 py-6 px-2 md:p-6">
+                    <div className="bg-neutral-800 backdrop-blur-sm rounded-2xl shadow-xl border border-white/10 py-6 px-2 md:p-6">
                         <div className="flex flex-col items-center justify-between mb-2">
-                            <h3 className="text-gray-200 bg-gray-700/50 text-xl font-medium border border-white/20 shadow-lg rounded-2xl px-4 py-2 mb-4">Evolução de Receita</h3>
+                            <h3 className="text-gray-200 bg-secondary text-xl font-medium border border-white/20 shadow-lg rounded-2xl px-4 py-2 mb-4">Evolução de Receita</h3>
                             
                             <div className="flex flex-col md:flex-row gap-y-4 flex-nowrap my-4 w-full pl-4 md:px-4 md:justify-between md:items-center">
                                 <select
                                     value={balancePeriod}
                                     onChange={(e) => setBalancePeriod(e.target.value as Period)}
-                                    className="text-xs mr-4 bg-gray-500/50 text-white rounded-lg p-2 md:text-lg"
+                                    className="text-xs mr-4 bg-secondary text-white rounded-lg p-2 md:text-lg"
                                 >
                                     <option value="7D">Últimos 7 dias</option>
                                     <option value="15D">Últimos 15 dias</option>
@@ -198,7 +205,7 @@ export default function Home() {
                                 <div className="flex flex-row flex-nowrap gap-x-4">
                                     <button
                                         type="button"
-                                        className="text-white bg-gray-500/50 rounded-lg p-2 text-xs md:text-sm disabled:opacity-50"
+                                        className="text-white bg-secondary rounded-lg p-2 text-xs md:text-sm disabled:opacity-50 hover:cursor-pointer disabled:hover:cursor-default"
                                         disabled={mode === "DETAILED"}
                                         onClick={() => { setMode("DETAILED") }}
                                     >
@@ -206,7 +213,7 @@ export default function Home() {
                                     </button>
                                     <button
                                         type="button"
-                                        className="text-white bg-gray-500/50 rounded-lg p-2 text-xs md:text-sm disabled:opacity-50"
+                                        className="text-white bg-primary rounded-lg p-2 text-xs md:text-sm disabled:opacity-50 hover:cursor-pointer disabled:hover:cursor-default"
                                         disabled={mode === "SUMMARY"}
                                         onClick={() => { setMode("SUMMARY") }}
                                     >
@@ -223,15 +230,15 @@ export default function Home() {
                     </div>
 
                     {/* --- GRÁFICO DE BARRAS --- */}
-                    <div className="bg-gray-800/40 backdrop-blur-sm rounded-2xl shadow-xl border border-white/10 py-6 px-2 md:p-6">
+                    <div className="bg-neutral-800 backdrop-blur-sm rounded-2xl shadow-xl border border-white/10 py-6 px-2 md:p-6">
                         <div className="flex flex-col items-center justify-between mb-2">
-                            <h3 className="text-gray-200 bg-gray-700/50 text-xl font-medium border border-white/20 shadow-lg rounded-2xl px-4 py-2 mb-4">Despesas por categoria</h3>
+                            <h3 className="text-gray-200 bg-secondary text-xl font-medium border border-white/20 shadow-lg rounded-2xl px-4 py-2 mb-4">Despesas por categoria</h3>
                             
                             <div className="flex flex-col md:flex-row gap-y-4 flex-nowrap my-4 w-full pl-4 md:px-4 md:justify-between md:items-center">
                                 <select
                                     value={categoryPeriod}
                                     onChange={(e) => setCategoryPeriod(e.target.value as Period)}
-                                    className="text-xs mr-4 bg-gray-500/50 text-white rounded-lg p-2 md:text-lg"
+                                    className="text-xs mr-4 bg-secondary text-white rounded-lg p-2 md:text-lg"
                                 >
                                     <option value="7D">Últimos 7 dias</option>
                                     <option value="15D">Últimos 15 dias</option>

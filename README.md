@@ -29,8 +29,9 @@ The project is yet in development. See the roadmap below:
             - [X]  Setup
                 - [X]  Define mocked data
                 - [ ]  Custom Achievements System
+                - [ ]  Debts sytem
             - [ ]  Ranking
-                - [ ] Journey System
+                - [X] Journey System
                 - [X] Ranking system
                 - [X] Bagde System
             - [X]  About
