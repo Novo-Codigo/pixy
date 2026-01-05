@@ -33,11 +33,31 @@ type PastIncome = {
     expenses: Expense[],
 }
 
-export default function SetupPage() {
-    const [showIncomeModal, setShowIncomeModal] = useState(false)
-    const [showExpenseModal, setShowExpenseModal] = useState(false)
+type Goal = {
+    id: string,
+    target: number | null,
+    current: number | null,
+    title: string,
+    estimatedEndDate?: string,
+    createdAt: string,
+    image?: string
+}
 
-    const [pastIncomes, _] = useState<PastIncome[]>([
+type Debt = {
+    id: string,
+    amount: number,
+    current: number,
+    title: string,
+    estimatedEndDate?: string,
+    startDate: string,
+}
+
+export default function SetupPage() {
+    const [showIncomeModal, setShowIncomeModal] = useState<boolean>(false);
+    const [showExpenseModal, setShowExpenseModal] = useState<boolean>(false);
+    const [showGoalModal, setShowGoalModal] = useState<boolean>(false);
+
+    const pastIncomes = [
         { month: "Janeiro 2023", amount: 3300, incomes: [
                 { id: "1", amount: 8000, description: "Salário", date: "2023-01-05", type: "monthly" },
             ], expenses: [
@@ -58,7 +78,7 @@ export default function SetupPage() {
                 { id: "5", amount: 550, description: "Lazer", date: "2023-01-20", category: "Lazer", recurring: false },
             ]
         }
-    ]);
+    ];
 
     const [incomes, setIncomes] = useState<Income[]>([
         { id: "1", amount: 5000, description: "Salário", date: "2024-01-05", type: "monthly" },
@@ -88,6 +108,7 @@ export default function SetupPage() {
         date: "",
         type: "extra" as "extra" | "monthly",
     })
+
     const [newExpense, setNewExpense] = useState({
         amount: "",
         description: "",
@@ -95,6 +116,91 @@ export default function SetupPage() {
         category: "",
         recurring: false,
     })
+
+    const [pastGoals, setPastGoals] = useState<Goal[]>([
+        {
+            id: "1",
+            target: 200000,
+            current: 50000,
+            title: "Casa Nova",
+            estimatedEndDate: "2027-06-15",
+            createdAt: "2026-01-03",
+        },
+        {
+            id: "2",
+            target: 50000,
+            current: 18000,
+            title: "Viagem Internacional",
+            estimatedEndDate: "2026-12-10",
+            createdAt: "2025-08-20",
+        },
+        {
+            id: "3",
+            target: 30000,
+            current: 30000,
+            title: "Novo Notebook",
+            estimatedEndDate: "2025-11-01",
+            createdAt: "2025-03-15",
+        },
+        {
+            id: "4",
+            target: 80000,
+            current: 42000,
+            title: "Reserva de Emergência",
+            estimatedEndDate: "2026-09-30",
+            createdAt: "2025-12-01",
+        },
+    ]);
+
+    const [pastDebts, setPastDebts] = useState<Debt[]>([
+        {
+            id: "1",
+            amount: 4000,
+            current: 200,
+            title: "Dívida Nubank",
+            startDate: "2022-06-22",
+        },
+        {
+            id: "2",
+            amount: 12000,
+            current: 3500,
+            title: "Financiamento do Carro",
+            startDate: "2021-03-10",
+        },
+        {
+            id: "3",
+            amount: 2500,
+            current: 900,
+            title: "Cartão Santander",
+            startDate: "2023-01-05",
+        },
+        {
+            id: "4",
+            amount: 8000,
+            current: 4200,
+            title: "Empréstimo Pessoal",
+            startDate: "2020-11-18",
+        },
+    ]);
+
+    const [newGoal, setNewGoal] = useState<Goal>({
+        id: "",
+        target: null,
+        current: null,
+        title: "",
+        estimatedEndDate: "",
+        createdAt: ""
+    });
+
+    const [newDebt, setNewDebt] = useState<Debt>({
+        id: "",
+        amount: 0,
+        current: 0,
+        title: "",
+        estimatedEndDate: "",
+        startDate: ""
+    });
+
 
     const totalIncome = incomes.reduce((sum, income) => sum + income.amount, 0)
     const totalExpenses = expenses.reduce((sum, expense) => sum + expense.amount, 0)
@@ -131,16 +237,218 @@ export default function SetupPage() {
         }
     }
 
+    const handleAddNewGoal = () => {
+        if (newGoal.target && newGoal.current && newGoal.estimatedEndDate && newGoal.title) {
+            const goal: Goal = {
+                id: Date.now().toString(),
+                current: Number(newGoal.current),
+                target: Number(newGoal.target),
+                estimatedEndDate: newGoal.estimatedEndDate,
+                title: newGoal.title,
+                createdAt: Date.now().toString()
+            }
+            setPastGoals([...pastGoals, goal]);
+            setNewGoal({
+                id: "",
+                target: 0,
+                current: 0,
+                estimatedEndDate: "",
+                title: "",
+                createdAt: ""
+            })
+            setShowGoalModal(false);
+        }
+    }
+
     const deleteIncome = (id: string) => {
         setIncomes((prev) => prev.filter((income) => income.id !== id))
     }
 
     const deleteExpense = (id: string) => {
-        setExpenses((prev) => prev.filter((expense) => expense.id !== id))
+        setExpenses((prev) => prev.filter((expense) => expense.id !== id));
+    }
+
+    const deleteGoal = (id: string) => {
+        setPastGoals((prev) => prev.filter((goal) => goal.id !== id));
+    }
+
+    const deleteDebt = (id: string) => {
+        setPastDebts((prev) => prev.filter((debt) => debt.id !== id));
     }
 
     return (
         <div className="min-h-screen bg-linear-to-br from-gray-900 via-gray-800 to-gray-900 pb-12">
+            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 md:py-12">
+                <h1 className="text-3xl md:text-4xl font-bold text-white mb-8">Metas & Dívidas</h1>
+
+                <div className="grid md:grid-cols-2 gap-6">
+                    <div className="bg-secondary/40 backdrop-blur-sm rounded-2xl shadow-xl border border-white/10 p-6">
+                        <div className="flex items-center justify-between mb-6">
+                            <h2 className="text-xl font-bold text-white">Metas</h2>
+                            <button
+                                type="button"
+                                onClick={() => setShowGoalModal(true)}
+                                className="flex items-center gap-2 bg-green-600 hover:bg-green-700 text-white px-4 py-2 rounded-lg transition-all duration-300 hover:scale-105 font-medium"
+                            >
+                                <FaPlus color="white" />
+                                Adicionar
+                            </button>
+                        </div>
+
+                        <div className="space-y-3 max-h-96 overflow-y-auto">
+                            {pastGoals.map((goal) => {
+                                if (!goal) return;
+
+                                const percentage = Math.min(
+                                    Math.round((goal.current / goal.target) * 100),
+                                    100
+                                );
+
+                                return (
+                                    <div
+                                        key={goal.id}
+                                        className="bg-gray-700/30 p-4 rounded-lg border border-white/10 hover:bg-gray-700/40 transition-colors flex items-center gap-4"
+                                    >
+                                        <div className="relative w-16 h-16">
+                                            <svg className="w-full h-full -rotate-90">
+                                                <circle
+                                                    cx="32"
+                                                    cy="32"
+                                                    r="28"
+                                                    stroke="rgba(255,255,255,0.1)"
+                                                    strokeWidth="6"
+                                                    fill="none"
+                                                />
+                                                <circle
+                                                    cx="32"
+                                                    cy="32"
+                                                    r="28"
+                                                    stroke="#22c55e"
+                                                    strokeWidth="6"
+                                                    fill="none"
+                                                    strokeDasharray={2 * Math.PI * 28}
+                                                    strokeDashoffset={
+                                                        2 * Math.PI * 28 * (1 - percentage / 100)
+                                                    }
+                                                    strokeLinecap="round"
+                                                />
+                                            </svg>
+                                            <span className="absolute inset-0 flex items-center justify-center text-sm font-semibold text-white">
+                                                {percentage}%
+                                            </span>
+                                        </div>
+
+                                        <div className="flex-1 flex flex-col">
+                                            <h3 className="text-white font-medium">{goal.title}</h3>
+
+                                            <span className="text-green-400 font-semibold">
+                                                Meta: R$ {goal.target.toLocaleString("pt-BR")}
+                                            </span>
+
+                                            <span className="text-blue-400">
+                                                Atual: R$ {goal.current.toLocaleString("pt-BR")}
+                                            </span>
+
+                                            <span className="text-gray-400 text-sm">
+                                                Até {new Date(goal.estimatedEndDate).toLocaleDateString("pt-BR")}
+                                            </span>
+                                        </div>
+
+                                        <button
+                                            type="button"
+                                            onClick={() => deleteGoal(goal.id)}
+                                            className="text-red-400 hover:text-red-300 p-2 hover:bg-red-500/10 rounded transition-colors"
+                                        >
+                                            <RiDeleteBin6Line />
+                                        </button>
+                                    </div>
+                                );
+                            })}
+                        </div>
+
+                    </div>
+
+                    <div className="bg-secondary/40 backdrop-blur-sm rounded-2xl shadow-xl border border-white/10 p-6">
+                        <div className="flex items-center justify-between mb-6">
+                            <h2 className="text-xl font-bold text-white">Dívidas</h2>
+                            <button
+                                type="button"
+                                onClick={() => setShowGoalModal(true)}
+                                className="flex items-center gap-2 bg-red-600 hover:bg-red-700 text-white px-4 py-2 rounded-lg transition-all duration-300 hover:scale-105 font-medium"
+                            >
+                                <FaPlus color="white" />
+                                Adicionar
+                            </button>
+                        </div>
+
+                        <div className="space-y-3 max-h-96 overflow-y-auto">
+                            {pastDebts.map((debt) => {
+                                const percentage = Math.min(
+                                    Math.round((debt.current / debt.amount) * 100),
+                                    100
+                                );
+
+                                return (
+                                    <div
+                                        key={debt.id}
+                                        className="bg-gray-700/30 p-4 rounded-lg border border-white/10 hover:bg-gray-700/40 transition-colors flex items-center gap-4"
+                                    >
+                                        <div className="relative w-16 h-16">
+                                            <svg className="w-full h-full -rotate-90">
+                                                <circle
+                                                    cx="32"
+                                                    cy="32"
+                                                    r="28"
+                                                    stroke="rgba(255,255,255,0.1)"
+                                                    strokeWidth="6"
+                                                    fill="none"
+                                                />
+                                                <circle
+                                                    cx="32"
+                                                    cy="32"
+                                                    r="28"
+                                                    stroke="#22c55e"
+                                                    strokeWidth="6"
+                                                    fill="none"
+                                                    strokeDasharray={2 * Math.PI * 28}
+                                                    strokeDashoffset={
+                                                        2 * Math.PI * 28 * (1 - percentage / 100)
+                                                    }
+                                                    strokeLinecap="round"
+                                                />
+                                            </svg>
+                                            <span className="absolute inset-0 flex items-center justify-center text-sm font-semibold text-white">
+                                                {percentage}%
+                                            </span>
+                                        </div>
+
+                                        <div className="flex-1 flex flex-col">
+                                            <h3 className="text-white font-medium">{debt.title}</h3>
+
+                                            <span className="text-red-400 font-semibold">
+                                                Meta: R$ {debt.amount.toLocaleString("pt-BR")}
+                                            </span>
+
+                                            <span className="text-blue-400">
+                                                Atual: R$ {debt.current.toLocaleString("pt-BR")}
+                                            </span>
+                                        </div>
+
+                                        <button
+                                            type="button"
+                                            onClick={() => deleteIncome(debt.id)}
+                                            className="text-red-400 hover:text-red-300 p-2 hover:bg-red-500/10 rounded transition-colors"
+                                        >
+                                            <RiDeleteBin6Line />
+                                        </button>
+                                    </div>
+                                );
+                            })}
+                        </div>
+                    </div>
+                </div>
+            </div>
+
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 md:py-12">
                 <h1 className="text-3xl md:text-4xl font-bold text-white mb-8">Gerenciador Financeiro</h1>
 
@@ -268,6 +576,88 @@ export default function SetupPage() {
                                     </div>
                                 </div>
                             ))}
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div
+                className={`fixed inset-0 z-50 flex items-center justify-center bg-black/60 backdrop-blur-sm p-4 transition-opacity duration-300 ${
+                showGoalModal ? "opacity-100 visible" : "opacity-0 invisible pointer-events-none"
+                }`}
+            >
+                <div className="bg-secondary/95 backdrop-blur-sm rounded-2xl shadow-2xl border border-white/10 p-6 max-w-md w-full">
+                    <h3 className="text-2xl font-bold text-white mb-6">Adicionar Nova Meta</h3>
+                    <div className="space-y-4">
+                        <div>
+                            <label className="block text-gray-400 text-sm mb-2">Título</label>
+                            <input
+                                type="text"
+                                value={newGoal.title}
+                                onChange={(e) => setNewGoal({ ...newGoal, title: e.target.value })}
+                                className="w-full bg-gray-700/50 text-white px-4 py-3 rounded-lg border border-white/10 focus:outline-none focus:ring-2 focus:ring-purple-500"
+                                placeholder="Ex: Novo Carro"
+                            />
+                        </div>
+
+                        <div>
+                            <label className="block text-gray-400 text-sm mb-2">Valor Final</label>
+                            <input
+                                type="number"
+                                value={newGoal.target ?? ""}
+                                onChange={(e) => setNewGoal({ ...newGoal, target: Number(e.target.value) })}
+                                className="w-full bg-gray-700/50 text-white px-4 py-3 rounded-lg border border-white/10 focus:outline-none focus:ring-2 focus:ring-purple-500"
+                                placeholder="500.00"
+                            />
+                        </div>
+
+                        <div>
+                            <label className="block text-gray-400 text-sm mb-2">Data de Início</label>
+                            <input
+                                type="date"
+                                value={newGoal.createdAt}
+                                onChange={(e) => setNewGoal({ ...newGoal, createdAt: e.target.value })}
+                                className="w-full bg-gray-700/50 text-white px-4 py-3 rounded-lg border border-white/10 focus:outline-none focus:ring-2 focus:ring-purple-500"
+                            />
+                        </div>
+
+                        <div>
+                            <label className="block text-gray-400 text-sm mb-2">Data de Término Estimada</label>
+                            <input
+                                type="date"
+                                value={newGoal.estimatedEndDate}
+                                onChange={(e) => setNewGoal({ ...newGoal, estimatedEndDate: e.target.value })}
+                                className="w-full bg-gray-700/50 text-white px-4 py-3 rounded-lg border border-white/10 focus:outline-none focus:ring-2 focus:ring-purple-500"
+                            />
+                        </div>
+
+                        <div>
+                            <label className="block text-gray-400 text-sm mb-2">Valor Guardado Atualmente</label>
+                            <input
+                                type="number"
+                                value={newGoal.current ?? ""}
+                                onChange={(e) => setNewGoal({ ...newGoal, current: Number(e.target.value) })}
+                                className="w-full bg-gray-700/50 text-white px-4 py-3 rounded-lg border border-white/10 focus:outline-none focus:ring-2 focus:ring-purple-500"
+                                placeholder="500.00"
+                            />
+                        </div>
+
+                        <div className="flex gap-3 mt-6">
+                            <button
+                                type="button"
+                                onClick={() => setShowGoalModal(false)}
+                                className="flex-1 bg-gray-700/50 hover:bg-gray-600 text-white px-4 py-3 rounded-lg transition-colors font-medium"
+                            >
+                                Cancelar
+                            </button>
+
+                            <button
+                                type="button"
+                                onClick={handleAddNewGoal}
+                                className="flex-1 bg-green-600 hover:bg-green-700 text-white px-4 py-3 rounded-lg transition-colors font-medium"
+                            >
+                                Adicionar
+                            </button>
                         </div>
                     </div>
                 </div>

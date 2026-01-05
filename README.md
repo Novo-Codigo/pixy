@@ -19,8 +19,8 @@ The project is yet in development. See the roadmap below:
         - [X]  Create Logo
         - [X]  Create minimal landing page
         - [X]  Deploy on vercel
-    - [ ]  1.2
-        - [ ]  Create responsive pages
+    - [X]  1.2
+        - [X]  Create responsive pages
             - [X]  Main page
                 - [X]  Create a dashboard to display mocked financial data
                 - [X]  Define mocked data
@@ -28,13 +28,20 @@ The project is yet in development. See the roadmap below:
                 - [X]  Define mocked user and it's data
             - [X]  Setup
                 - [X]  Define mocked data
-                - [ ]  Custom Achievements System
-                - [ ]  Debts sytem
+                - [X]  Custom Achievements System
+                - [X]  Debts sytem
             - [ ]  Ranking
                 - [X] Journey System
                 - [X] Ranking system
                 - [X] Bagde System
             - [X]  About
+    - [ ]  1.3
+        - [ ] Initial API Config
+            - [ ] CustomUser
+            - [ ] DRF
+            - [ ] Security
+            - [ ] Jazzmin
+            - [ ] Swagger Minimal Setup
 - [ ]  Phase 2
 - [ ]  Phase 3
 - [ ]  Phase 4
