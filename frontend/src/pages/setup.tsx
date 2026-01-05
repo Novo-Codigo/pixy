@@ -45,8 +45,8 @@ type Goal = {
 
 type Debt = {
     id: string,
-    amount: number,
-    current: number,
+    amount: number | null,
+    current: number | null,
     title: string,
     estimatedEndDate?: string,
     startDate: string,
@@ -56,6 +56,7 @@ export default function SetupPage() {
     const [showIncomeModal, setShowIncomeModal] = useState<boolean>(false);
     const [showExpenseModal, setShowExpenseModal] = useState<boolean>(false);
     const [showGoalModal, setShowGoalModal] = useState<boolean>(false);
+    const [showDebtModal, setShowDebtModal] = useState<boolean>(false);
 
     const pastIncomes = [
         { month: "Janeiro 2023", amount: 3300, incomes: [
@@ -194,8 +195,8 @@ export default function SetupPage() {
 
     const [newDebt, setNewDebt] = useState<Debt>({
         id: "",
-        amount: 0,
-        current: 0,
+        amount: null,
+        current: null,
         title: "",
         estimatedEndDate: "",
         startDate: ""
@@ -245,18 +246,41 @@ export default function SetupPage() {
                 target: Number(newGoal.target),
                 estimatedEndDate: newGoal.estimatedEndDate,
                 title: newGoal.title,
-                createdAt: Date.now().toString()
+                createdAt: newGoal.createdAt ?? Date.now().toString()
             }
             setPastGoals([...pastGoals, goal]);
             setNewGoal({
                 id: "",
-                target: 0,
-                current: 0,
+                target: null,
+                current: null,
                 estimatedEndDate: "",
                 title: "",
                 createdAt: ""
             })
             setShowGoalModal(false);
+        }
+    }
+
+    const handleAddDebt = () => {
+        if (newDebt.amount && newDebt.current && newDebt.estimatedEndDate && newDebt.title) {
+            const debt: Debt = {
+                id: Date.now().toString(),
+                current: Number(newDebt.current),
+                amount: Number(newDebt.amount),
+                estimatedEndDate: newDebt.estimatedEndDate,
+                title: newDebt.title,
+                startDate: newDebt.startDate ?? Date.now().toString()
+            }
+            setPastDebts([...pastDebts, debt]);
+            setNewDebt({
+                id: "",
+                amount: null,
+                current: null,
+                estimatedEndDate: "",
+                title: "",
+                startDate: ""
+            })
+            setShowDebtModal(false);
         }
     }
 
@@ -373,7 +397,7 @@ export default function SetupPage() {
                             <h2 className="text-xl font-bold text-white">Dívidas</h2>
                             <button
                                 type="button"
-                                onClick={() => setShowGoalModal(true)}
+                                onClick={() => setShowDebtModal(true)}
                                 className="flex items-center gap-2 bg-red-600 hover:bg-red-700 text-white px-4 py-2 rounded-lg transition-all duration-300 hover:scale-105 font-medium"
                             >
                                 <FaPlus color="white" />
@@ -436,7 +460,7 @@ export default function SetupPage() {
 
                                         <button
                                             type="button"
-                                            onClick={() => deleteIncome(debt.id)}
+                                            onClick={() => deleteDebt(debt.id)}
                                             className="text-red-400 hover:text-red-300 p-2 hover:bg-red-500/10 rounded transition-colors"
                                         >
                                             <RiDeleteBin6Line />
@@ -576,6 +600,88 @@ export default function SetupPage() {
                                     </div>
                                 </div>
                             ))}
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div
+                className={`fixed inset-0 z-50 flex items-center justify-center bg-black/60 backdrop-blur-sm p-4 transition-opacity duration-300 ${
+                showDebtModal ? "opacity-100 visible" : "opacity-0 invisible pointer-events-none"
+                }`}
+            >
+                <div className="bg-secondary/95 backdrop-blur-sm rounded-2xl shadow-2xl border border-white/10 p-6 max-w-md w-full">
+                    <h3 className="text-2xl font-bold text-white mb-6">Adicionar Nova Dívida</h3>
+                    <div className="space-y-4">
+                        <div>
+                            <label className="block text-gray-400 text-sm mb-2">Título</label>
+                            <input
+                                type="text"
+                                value={newDebt.title}
+                                onChange={(e) => setNewDebt({ ...newDebt, title: e.target.value })}
+                                className="w-full bg-gray-700/50 text-white px-4 py-3 rounded-lg border border-white/10 focus:outline-none focus:ring-2 focus:ring-purple-500"
+                                placeholder="Ex: Fatura do Banco X"
+                            />
+                        </div>
+
+                        <div>
+                            <label className="block text-gray-400 text-sm mb-2">Valor da Dívida</label>
+                            <input
+                                type="number"
+                                value={newDebt.amount ?? ""}
+                                onChange={(e) => setNewDebt({ ...newDebt, amount: Number(e.target.value) })}
+                                className="w-full bg-gray-700/50 text-white px-4 py-3 rounded-lg border border-white/10 focus:outline-none focus:ring-2 focus:ring-purple-500"
+                                placeholder="500.00"
+                            />
+                        </div>
+
+                        <div>
+                            <label className="block text-gray-400 text-sm mb-2">Data de Início</label>
+                            <input
+                                type="date"
+                                value={newDebt.startDate}
+                                onChange={(e) => setNewDebt({ ...newDebt, startDate: e.target.value })}
+                                className="w-full bg-gray-700/50 text-white px-4 py-3 rounded-lg border border-white/10 focus:outline-none focus:ring-2 focus:ring-purple-500"
+                            />
+                        </div>
+
+                        <div>
+                            <label className="block text-gray-400 text-sm mb-2">Data de Término Estimada</label>
+                            <input
+                                type="date"
+                                value={newDebt.estimatedEndDate}
+                                onChange={(e) => setNewDebt({ ...newDebt, estimatedEndDate: e.target.value })}
+                                className="w-full bg-gray-700/50 text-white px-4 py-3 rounded-lg border border-white/10 focus:outline-none focus:ring-2 focus:ring-purple-500"
+                            />
+                        </div>
+
+                        <div>
+                            <label className="block text-gray-400 text-sm mb-2">Valor Abatido Atualmente</label>
+                            <input
+                                type="number"
+                                value={newDebt.current ?? ""}
+                                onChange={(e) => setNewDebt({ ...newDebt, current: Number(e.target.value) })}
+                                className="w-full bg-gray-700/50 text-white px-4 py-3 rounded-lg border border-white/10 focus:outline-none focus:ring-2 focus:ring-purple-500"
+                                placeholder="500.00"
+                            />
+                        </div>
+
+                        <div className="flex gap-3 mt-6">
+                            <button
+                                type="button"
+                                onClick={() => setShowDebtModal(false)}
+                                className="flex-1 bg-gray-700/50 hover:bg-gray-600 text-white px-4 py-3 rounded-lg transition-colors font-medium"
+                            >
+                                Cancelar
+                            </button>
+
+                            <button
+                                type="button"
+                                onClick={handleAddDebt}
+                                className="flex-1 bg-green-600 hover:bg-green-700 text-white px-4 py-3 rounded-lg transition-colors font-medium"
+                            >
+                                Adicionar
+                            </button>
                         </div>
                     </div>
                 </div>
