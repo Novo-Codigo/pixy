@@ -64,16 +64,24 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'pixy.wsgi.application'
 
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': os.environ.get('DB_NAME'),
-        'PASSWORD': os.environ.get('DB_PASSWORD'),
-        'USERNAME': os.environ.get('DB_USER'),
-        'HOST': os.environ.get('DB_HOST'),
-        'PORT': os.environ.get('DB_PORT'),
+if os.getenv('GITHUB_ACTIONS'):
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.sqlite3',
+            'NAME': BASE_DIR / 'db_ci.sqlite3',
+        }
     }
-}
+else:
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.postgresql',
+            'NAME': os.environ.get('DB_NAME', 'name'),
+            'USERNAME': os.environ.get('DB_USER', 'user'),
+            'PASSWORD': os.environ.get('DB_PASSWORD', 'password'),
+            'HOST': os.environ.get('DB_HOST', 'localhost'),
+            'PORT': os.environ.get('DB_PORT', '5432'),
+        }
+    }
 
 AUTH_PASSWORD_VALIDATORS = [
     {
