@@ -101,8 +101,33 @@ class JWTAuthenticationTest(APITestCase):
             format='json'
         )
 
-        self.assertEqual(res.status_code, status.HTTP_200_OK)
-        self.assertIn('access', res.data)
+        self.assertEqual(
+            res.status_code,
+            status.HTTP_200_OK
+        )
+        self.assertIn(
+            'access',
+            res.data
+        )
 
     def test_refresh_token_with_invalid_refresh(self):
-        pass
+        refresh_token = "falseRefreshToken"
+
+        refresh_url = reverse('token_refresh')
+        refresh_payload = {
+            "refresh": refresh_token
+        }
+        res = self.client.post(
+            refresh_url,
+            refresh_payload,
+            format='json'
+        )
+
+        self.assertEqual(
+            res.status_code,
+            status.HTTP_401_UNAUTHORIZED
+        )
+        self.assertNotIn(
+            'access',
+            res.data
+        )
