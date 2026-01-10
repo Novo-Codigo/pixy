@@ -40,7 +40,29 @@ class JWTAuthenticationTest(APITestCase):
         )
 
     def test_obtain_token_with_invalid_credentials(self):
-        pass
+        url = reverse('token_obtain_pair')
+        payload = {
+            "email": "notexist@example.com",
+            "password": "ieieieie"
+        }
+        res = self.client.post(
+            url,
+            payload,
+            format='json'
+        )
+
+        self.assertEqual(
+            res.status_code,
+            status.HTTP_401_UNAUTHORIZED
+        )
+        self.assertNotIn(
+            'access',
+            res.data
+        )
+        self.assertNotIn(
+            'refresh',
+            res.data
+        )
 
     def test_refresh_token_with_valid_refresh(self):
         pass
