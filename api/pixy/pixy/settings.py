@@ -4,15 +4,17 @@ Django settings for pixy project.
 
 import os
 from datetime import timedelta
-from dotenv import load_dotenv
 from pathlib import Path
-
-
-load_dotenv()
+from dotenv import load_dotenv
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-SECRET_KEY = os.environ.get('SECRET_KEY', 'django-insecure-@dyh(4%^!x%3pgc6hgqh$jvyy1_9*h7!7t+0)7)!n_ae(v+%(&')
+load_dotenv()
+
+SECRET_KEY = os.environ.get(
+    'SECRET_KEY',
+    'django-insecure-@dyh(4%^!x%3pgc6hgqh$jvyy1_9*h7!7t+0)7)!n_ae(v+%(&'
+)
 
 DEBUG = os.environ.get('ENVIRONMENT') != 'prod'
 

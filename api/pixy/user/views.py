@@ -1,10 +1,12 @@
+"""Configuration file for user views"""
+
 from rest_framework import viewsets
 from rest_framework.permissions import AllowAny, IsAuthenticated
 
-from .models import *
-from .serializers import *
+from .models import PixyUser
+from .serializers import PixyUserSerializer
 
-class PixyUserViewSet(viewsets.ModelViewSet):
+class PixyUserViewSet(viewsets.ModelViewSet): # pylint: disable=missing-class-docstring,too-many-ancestors
     query = PixyUser.objects.all()
     serializer_class = PixyUserSerializer
 

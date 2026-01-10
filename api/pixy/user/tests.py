@@ -1,11 +1,14 @@
+"""Test file for user model."""
+
 from django.urls import reverse
 from rest_framework import status
 from rest_framework.test import APITestCase, APIClient
 
-from .models import *
+from .models import PixyUser
 
-class JWTAuthenticationTest(APITestCase):
+class JWTAuthenticationTest(APITestCase): # pylint: disable=missing-class-docstring
     def setUp(self):
+        """Base configuration function."""
         self.client = APIClient()
         self.user = PixyUser.objects.create_user(
             email="test@example.com",
@@ -15,6 +18,7 @@ class JWTAuthenticationTest(APITestCase):
         )
 
     def test_obtain_token_with_valid_credentials(self):
+        """Tests wether a user can login."""
         url = reverse('token_obtain_pair')
         payload = {
             "email": "test@example.com",
@@ -40,6 +44,7 @@ class JWTAuthenticationTest(APITestCase):
         )
 
     def test_obtain_token_with_invalid_credentials(self):
+        """Tests if user can't login without correct credentials."""
         url = reverse('token_obtain_pair')
         payload = {
             "email": "notexist@example.com",
@@ -65,6 +70,7 @@ class JWTAuthenticationTest(APITestCase):
         )
 
     def test_refresh_token_with_valid_refresh(self):
+        """Tests wether user can refresh token."""
         url = reverse('token_obtain_pair')
         payload = {
             "email": "test@example.com",
@@ -111,6 +117,7 @@ class JWTAuthenticationTest(APITestCase):
         )
 
     def test_refresh_token_with_invalid_refresh(self):
+        """User shouldn't be able to refresh it's token without a correct refresh token."""
         refresh_token = "falseRefreshToken"
 
         refresh_url = reverse('token_refresh')

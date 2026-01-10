@@ -1,10 +1,16 @@
+"""
+Admin panel config file
+
+Modifies user's CRUD design
+"""
+
 from django.contrib import admin
 from django.contrib.auth.admin import UserAdmin
 
-from .forms import *
-from .models import *
+from .forms import PixyUserChangeForm, PixyUserCreationForm
+from .models import PixyUser
 
-class PixyUserAdmin(UserAdmin):
+class PixyUserAdmin(UserAdmin): # pylint: disable=missing-class-docstring
     add_form = PixyUserCreationForm
     form = PixyUserChangeForm
     model = PixyUser

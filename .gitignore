@@ -363,3 +363,4 @@ __marimo__/
 
 # custom
 migrations/
+.lintlog
