@@ -31,7 +31,7 @@ class PixyUser(AbstractBaseUser, PermissionsMixin):
     USERNAME_FIELD = "email"
     REQUIRED_FIELDS = [
         'name',
-        'surname'
+        'last_name'
     ]
 
     objects = PixyUserManager()
