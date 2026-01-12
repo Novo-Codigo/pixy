@@ -3,13 +3,16 @@ import Footer from "@/core/components/footer";
 import Header from "@/core/components/header";
 
 export default function App({ children } : { children: ReactNode }) {
+    const NO_HEADERS_PAGES = ["/registration"];
+    const currentPage = window.location.pathname;
+    
     return (
         <>
-            <Header />
+            {!(NO_HEADERS_PAGES.includes(currentPage)) && <Header /> }
                 <main className="min-h-screen">
                     {children}
                 </main>
-            <Footer />
+            {!(NO_HEADERS_PAGES.includes(currentPage)) && <Footer /> }
         </>
     )
 }

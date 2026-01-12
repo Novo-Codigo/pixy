@@ -8,6 +8,7 @@ import Home from '@/index.tsx';
 import App from '@/_layout.tsx';
 import { About } from '@/pages/about.tsx';
 import Progress from '@/pages/progress.tsx';
+import AuthPage from './pages/login';
 
 const router = createBrowserRouter([
     {
@@ -30,6 +31,10 @@ const router = createBrowserRouter([
         path: '/about',
         element: <About />
     },
+    {
+        path: '/registration',
+        element: <AuthPage />
+    }
 ])
 
 createRoot(document.getElementById('root')!).render(
