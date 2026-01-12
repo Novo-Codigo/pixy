@@ -31,17 +31,24 @@ The project is yet in development. See the roadmap below:
                 - [X]  Custom Achievements System
                 - [X]  Debts sytem
             - [ ]  Ranking
-                - [X] Journey System
-                - [X] Ranking system
-                - [X] Bagde System
+                - [X]  Journey System
+                - [X]  Ranking system
+                - [X]  Bagde System
             - [X]  About
     - [ ]  1.3
-        - [ ] Initial API Config
-            - [ ] CustomUser
-            - [ ] DRF
-            - [ ] Security
-            - [ ] Jazzmin
-            - [ ] Swagger Minimal Setup
+        - [ ]  Initial API Config
+            - [X]  CustomUser
+            - [X]  DRF
+            - [X]  Security
+            - [X]  Jazzmin
+            - [ ]  Swagger Minimal Setup
+        - [X]  Auth Page
+    - [ ]  1.4
+        - [ ]  Use api data
+            - [ ]  User Page
+            - [ ]  Main Page
+            - [ ]  Setup page
+            - [ ]  Ranking Page
 - [ ]  Phase 2
 - [ ]  Phase 3
 - [ ]  Phase 4
