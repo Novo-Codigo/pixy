@@ -161,3 +161,18 @@ class CustomTokenObtainPairSerializer(TokenObtainPairSerializer):
         data['last_name'] = self.user.last_name
 
         return data
+
+class DeleteAccountSerializer(serializers.Serializer): # pylint: disable=abstract-method
+    """
+    Temporary serializer for account deletion request.
+
+    Required:
+        password (str): User's current password.
+    """
+    password = serializers.CharField(
+        required=True,
+        style={
+            'input_type': 'password',
+        },
+        help_text="Confirm your current password in order to delete your account permanently."
+    )
