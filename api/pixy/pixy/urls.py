@@ -24,7 +24,7 @@ SchemaView = get_schema_view(
         )
     ),
     public=False,
-    permission_classes=(permissions.IsAuthenticatedOrReadOnly)
+    permission_classes=(permissions.IsAdminUser,),
 )
 
 urlpatterns = [
