@@ -5,8 +5,8 @@ import {
     ResponsiveContainer,
     Tooltip,
     XAxis,
-    YAxis
-} from "recharts";
+    YAxis,
+} from 'recharts';
 
 interface LineChartComponentProps {
     data: Array<{
@@ -19,7 +19,7 @@ interface LineChartComponentProps {
     mode: 'DETAILED' | 'SUMMARY';
 }
 
-export default function LineChartComponent({data, mode}: LineChartComponentProps) {
+export default function LineChartComponent({ data, mode }: LineChartComponentProps) {
     return (
         <div className="w-full h-96 overflow-x-auto">
             <ResponsiveContainer>
@@ -27,16 +27,31 @@ export default function LineChartComponent({data, mode}: LineChartComponentProps
                     <CartesianGrid strokeDasharray="3 3" />
                     <XAxis dataKey="date" />
                     <YAxis />
-                    <Tooltip/>
+                    <Tooltip />
 
                     {mode === 'DETAILED' ? (
                         <>
-                            <Line type="monotone" dataKey="income" stroke="#82ca9d" name="Receita" />
-                            <Line type="monotone" dataKey="expense" stroke="#ef5350" name="Saídas" />
+                            <Line
+                                type="monotone"
+                                dataKey="income"
+                                stroke="#82ca9d"
+                                name="Receita"
+                            />
+                            <Line
+                                type="monotone"
+                                dataKey="expense"
+                                stroke="#ef5350"
+                                name="Saídas"
+                            />
                         </>
                     ) : (
                         <>
-                            <Line type="monotone" dataKey="balance" stroke="#8884d8" name="Saldo Líquido" />
+                            <Line
+                                type="monotone"
+                                dataKey="balance"
+                                stroke="#8884d8"
+                                name="Saldo Líquido"
+                            />
                         </>
                     )}
                 </LineChart>

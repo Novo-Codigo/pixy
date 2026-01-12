@@ -13,29 +13,29 @@ import AuthPage from './pages/login';
 const router = createBrowserRouter([
     {
         path: '/',
-        element: <Home />
+        element: <Home />,
     },
     {
         path: '/profile',
-        element: <ProfilePage />
+        element: <ProfilePage />,
     },
     {
         path: '/setup',
-        element: <SetupPage />
+        element: <SetupPage />,
     },
     {
         path: '/progress',
-        element: <Progress />
+        element: <Progress />,
     },
     {
         path: '/about',
-        element: <About />
+        element: <About />,
     },
     {
         path: '/registration',
-        element: <AuthPage />
-    }
-])
+        element: <AuthPage />,
+    },
+]);
 
 createRoot(document.getElementById('root')!).render(
     <StrictMode>
@@ -43,4 +43,4 @@ createRoot(document.getElementById('root')!).render(
             <RouterProvider router={router} />
         </App>
     </StrictMode>,
-)
+);

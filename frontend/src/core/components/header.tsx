@@ -1,13 +1,8 @@
-import { GiHamburgerMenu } from "react-icons/gi";
-import { FaUser } from "react-icons/fa";
-import { IoMdClose } from "react-icons/io";
-import PixyLogo from "/pixy.webp";
-import {
-    useState,
-    useEffect,
-    type ReactNode,
-    type JSX
-} from "react";
+import { GiHamburgerMenu } from 'react-icons/gi';
+import { FaUser } from 'react-icons/fa';
+import { IoMdClose } from 'react-icons/io';
+import PixyLogo from '/pixy.webp';
+import { useState, useEffect, type ReactNode, type JSX } from 'react';
 
 interface NavProps {
     href: string;
@@ -34,7 +29,7 @@ export default function Header(): JSX.Element {
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                 <div className="flex justify-between items-center h-20">
                     <div className="flex items-center md:hidden">
-                        <button 
+                        <button
                             onClick={() => setIsMenuOpen(true)}
                             className="p-2 -ml-2 text-white hover:bg-white/10 rounded-md transition-colors"
                             aria-label="Abrir menu"
@@ -57,7 +52,7 @@ export default function Header(): JSX.Element {
                     </div>
 
                     <div className="flex items-center">
-                        <button 
+                        <button
                             className="bg-gray-700/50 hover:bg-gray-600 text-white p-3 rounded-full transition-all duration-300 hover:cursor-pointer hover:scale-105 hover:shadow-lg focus:ring-2 focus:ring-offset-2 focus:ring-offset-secondary focus:ring-white"
                             aria-label="Perfil do usuário"
                         >
@@ -69,21 +64,21 @@ export default function Header(): JSX.Element {
                 </div>
             </div>
 
-            <div 
+            <div
                 className={`fixed inset-0 z-40 bg-black/60 backdrop-blur-sm transition-opacity duration-300 md:hidden ${
-                    isMenuOpen ? "opacity-100 visible" : "opacity-0 invisible"
+                    isMenuOpen ? 'opacity-100 visible' : 'opacity-0 invisible'
                 }`}
                 onClick={() => setIsMenuOpen(false)}
             />
 
-            <div 
+            <div
                 className={`fixed h-screen inset-y-0 left-0 z-50 w-64 bg-gray-100 border-r border-black shadow-2xl transform transition-transform duration-300 ease-in-out md:hidden flex flex-col ${
-                    isMenuOpen ? "translate-x-0" : "-translate-x-full"
+                    isMenuOpen ? 'translate-x-0' : '-translate-x-full'
                 }`}
             >
                 <div className="flex items-center justify-between px-4 h-20 bg-secondary shrink-0 border-b">
                     <span className="text-xl font-bold text-white">MENU</span>
-                    <button 
+                    <button
                         onClick={() => setIsMenuOpen(false)}
                         className="p-2 text-white hover:bg-white/20 rounded-full transition-colors"
                     >
@@ -106,8 +101,8 @@ export default function Header(): JSX.Element {
 
 function NavLink({ href, children }: NavProps) {
     return (
-        <a 
-            href={href} 
+        <a
+            href={href}
             className="text-white/80 hover:text-white font-medium text-sm transition-colors relative group py-2"
         >
             {children}
@@ -118,8 +113,8 @@ function NavLink({ href, children }: NavProps) {
 
 function MobileNavLink({ href, children }: NavProps) {
     return (
-        <a 
-            href={href} 
+        <a
+            href={href}
             className="block px-4 py-3 text-gray-800 hover:border-b hover:text-black rounded-lg font-semibold transition-colors border border-transparent hover:border-gray-300"
         >
             {children}

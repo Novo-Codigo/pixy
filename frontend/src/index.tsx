@@ -1,7 +1,7 @@
-import { useMemo, useState } from "react";
-import { differenceInDays, format, parseISO } from "date-fns";
-import BarChartComponent from "@/recharts/components/barchart";
-import LineChartComponent from "@/recharts/components/linechart";
+import { useMemo, useState } from 'react';
+import { differenceInDays, format, parseISO } from 'date-fns';
+import BarChartComponent from '@/recharts/components/barchart';
+import LineChartComponent from '@/recharts/components/linechart';
 
 export const transactions = [
     // ===== 2020 =====
@@ -71,7 +71,25 @@ export const transactions = [
     { date: '2024-12-15', income: 350, expense: 260, category: 'Educação' },
 ];
 
-type Period = '7D' | '15D' | '30D' | '2M' | '3M' | '4M' | '5M' | '6M' | '7M' | '8M' | '9M' | '10M' | '11M' | '1Y' | '2Y' | '3Y' | '4Y' | 'ALL';
+type Period =
+    | '7D'
+    | '15D'
+    | '30D'
+    | '2M'
+    | '3M'
+    | '4M'
+    | '5M'
+    | '6M'
+    | '7M'
+    | '8M'
+    | '9M'
+    | '10M'
+    | '11M'
+    | '1Y'
+    | '2Y'
+    | '3Y'
+    | '4Y'
+    | 'ALL';
 type VisualizationMode = 'DETAILED' | 'SUMMARY';
 
 export default function Home() {
@@ -81,56 +99,54 @@ export default function Home() {
     const [mode, setMode] = useState<VisualizationMode>('DETAILED');
 
     function filteredData(period: Period) {
-        return transactions.filter(
-            (t) => {
-                const dateItem = parseISO(t.date);
+        return transactions.filter((t) => {
+            const dateItem = parseISO(t.date);
 
-                switch (period) {
-                    case '7D':
-                        return differenceInDays(today, dateItem) <= 7;
-                    case '15D':
-                        return differenceInDays(today, dateItem) <= 15;
-                    case '30D':
-                        return differenceInDays(today, dateItem) <= 30;
-                    case '2M':
-                        return differenceInDays(today, dateItem) <= 60;
-                    case '3M':
-                        return differenceInDays(today, dateItem) <= 90;
-                    case '4M':
-                        return differenceInDays(today, dateItem) <= 120;
-                    case '5M':
-                        return differenceInDays(today, dateItem) <= 150;
-                    case '6M':
-                        return differenceInDays(today, dateItem) <= 180;
-                    case '7M':
-                        return differenceInDays(today, dateItem) <= 210;
-                    case '8M':
-                        return differenceInDays(today, dateItem) <= 240;
-                    case '9M':
-                        return differenceInDays(today, dateItem) <= 270;
-                    case '10M':
-                        return differenceInDays(today, dateItem) <= 300;
-                    case '11M':
-                        return differenceInDays(today, dateItem) <= 330;
-                    case '1Y':
-                        return differenceInDays(today, dateItem) <= 365;
-                    case '2Y':
-                        return differenceInDays(today, dateItem) <= 730;
-                    case '3Y':
-                        return differenceInDays(today, dateItem) <= 1095;
-                    case '4Y':
-                        return differenceInDays(today, dateItem) <= 1460;
-                    case 'ALL':
-                        return true;
-                    default:
-                        return true;
-                }
+            switch (period) {
+                case '7D':
+                    return differenceInDays(today, dateItem) <= 7;
+                case '15D':
+                    return differenceInDays(today, dateItem) <= 15;
+                case '30D':
+                    return differenceInDays(today, dateItem) <= 30;
+                case '2M':
+                    return differenceInDays(today, dateItem) <= 60;
+                case '3M':
+                    return differenceInDays(today, dateItem) <= 90;
+                case '4M':
+                    return differenceInDays(today, dateItem) <= 120;
+                case '5M':
+                    return differenceInDays(today, dateItem) <= 150;
+                case '6M':
+                    return differenceInDays(today, dateItem) <= 180;
+                case '7M':
+                    return differenceInDays(today, dateItem) <= 210;
+                case '8M':
+                    return differenceInDays(today, dateItem) <= 240;
+                case '9M':
+                    return differenceInDays(today, dateItem) <= 270;
+                case '10M':
+                    return differenceInDays(today, dateItem) <= 300;
+                case '11M':
+                    return differenceInDays(today, dateItem) <= 330;
+                case '1Y':
+                    return differenceInDays(today, dateItem) <= 365;
+                case '2Y':
+                    return differenceInDays(today, dateItem) <= 730;
+                case '3Y':
+                    return differenceInDays(today, dateItem) <= 1095;
+                case '4Y':
+                    return differenceInDays(today, dateItem) <= 1460;
+                case 'ALL':
+                    return true;
+                default:
+                    return true;
             }
-        );
+        });
     }
 
     const lineChartData = useMemo(() => {
-        return filteredData(balancePeriod).map(item => ({
+        return filteredData(balancePeriod).map((item) => ({
             ...item,
             displayDate: format(new Date(item.date), 'dd/MM'),
             balance: item.income - item.expense,
@@ -138,25 +154,27 @@ export default function Home() {
     }, [balancePeriod]);
 
     const barChartData = useMemo(() => {
-        const aggregation = filteredData(categoryPeriod)
-            .reduce((acc, curr) => {
+        const aggregation = filteredData(categoryPeriod).reduce(
+            (acc, curr) => {
                 const cat = curr.category;
 
-                if (!acc[cat]) acc[cat] = {
-                    name: cat,
-                    total: 0
-                }
+                if (!acc[cat])
+                    acc[cat] = {
+                        name: cat,
+                        total: 0,
+                    };
 
                 acc[cat].total += curr.expense;
 
                 return acc;
-            }, {} as Record<string, {name: string, total: number}>
+            },
+            {} as Record<string, { name: string; total: number }>,
         );
-        
+
         return Object.values(aggregation)
-            .filter(item => item.total > 0)
+            .filter((item) => item.total > 0)
             .sort((a, b) => b.total - a.total);
-    }, [categoryPeriod])
+    }, [categoryPeriod]);
 
     return (
         <div className="min-h-screen bg-linear-to-br from-primary via-secondary to-primary pb-12">
@@ -170,12 +188,13 @@ export default function Home() {
 
                 <h1 className="text-3xl md:text-4xl font-bold text-white mb-8">Resumo</h1>
                 <div className="flex flex-col gap-6 mb-8">
-                    
                     {/* --- GRÁFICO DE LINHA --- */}
                     <div className="bg-neutral-800 backdrop-blur-sm rounded-2xl shadow-xl border border-white/10 py-6 px-2 md:p-6">
                         <div className="flex flex-col items-center justify-between mb-2">
-                            <h3 className="text-gray-200 bg-secondary text-xl font-medium border border-white/20 shadow-lg rounded-2xl px-4 py-2 mb-4">Evolução de Receita</h3>
-                            
+                            <h3 className="text-gray-200 bg-secondary text-xl font-medium border border-white/20 shadow-lg rounded-2xl px-4 py-2 mb-4">
+                                Evolução de Receita
+                            </h3>
+
                             <div className="flex flex-col md:flex-row gap-y-4 flex-nowrap my-4 w-full pl-4 md:px-4 md:justify-between md:items-center">
                                 <select
                                     value={balancePeriod}
@@ -206,34 +225,37 @@ export default function Home() {
                                     <button
                                         type="button"
                                         className="text-white bg-secondary rounded-lg p-2 text-xs md:text-sm disabled:opacity-50 hover:cursor-pointer disabled:hover:cursor-default"
-                                        disabled={mode === "DETAILED"}
-                                        onClick={() => { setMode("DETAILED") }}
+                                        disabled={mode === 'DETAILED'}
+                                        onClick={() => {
+                                            setMode('DETAILED');
+                                        }}
                                     >
                                         DETALHADO
                                     </button>
                                     <button
                                         type="button"
                                         className="text-white bg-primary rounded-lg p-2 text-xs md:text-sm disabled:opacity-50 hover:cursor-pointer disabled:hover:cursor-default"
-                                        disabled={mode === "SUMMARY"}
-                                        onClick={() => { setMode("SUMMARY") }}
+                                        disabled={mode === 'SUMMARY'}
+                                        onClick={() => {
+                                            setMode('SUMMARY');
+                                        }}
                                     >
                                         RESUMIDO
                                     </button>
                                 </div>
                             </div>
 
-                            <LineChartComponent
-                                data={lineChartData}
-                                mode={mode} 
-                            />
+                            <LineChartComponent data={lineChartData} mode={mode} />
                         </div>
                     </div>
 
                     {/* --- GRÁFICO DE BARRAS --- */}
                     <div className="bg-neutral-800 backdrop-blur-sm rounded-2xl shadow-xl border border-white/10 py-6 px-2 md:p-6">
                         <div className="flex flex-col items-center justify-between mb-2">
-                            <h3 className="text-gray-200 bg-secondary text-xl font-medium border border-white/20 shadow-lg rounded-2xl px-4 py-2 mb-4">Despesas por categoria</h3>
-                            
+                            <h3 className="text-gray-200 bg-secondary text-xl font-medium border border-white/20 shadow-lg rounded-2xl px-4 py-2 mb-4">
+                                Despesas por categoria
+                            </h3>
+
                             <div className="flex flex-col md:flex-row gap-y-4 flex-nowrap my-4 w-full pl-4 md:px-4 md:justify-between md:items-center">
                                 <select
                                     value={categoryPeriod}

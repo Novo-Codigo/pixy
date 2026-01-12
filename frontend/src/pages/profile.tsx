@@ -1,19 +1,13 @@
-"use client"
+'use client';
 
-import {
-    FaEnvelope,
-    FaCalendar,
-    FaEdit,
-    FaCog,
-    FaSignOutAlt
-} from "react-icons/fa";
+import { FaEnvelope, FaCalendar, FaEdit, FaCog, FaSignOutAlt } from 'react-icons/fa';
 
 export default function ProfilePage() {
     const user = {
-        name: "Maria Silva",
-        email: "maria.silva@email.com",
-        joinDate: "Janeiro 2024"
-    }
+        name: 'Maria Silva',
+        email: 'maria.silva@email.com',
+        joinDate: 'Janeiro 2024',
+    };
 
     return (
         <div className="bg-linear-to-br from-gray-900 via-gray-800 to-gray-900 w-full min-h-screen mx-auto px-4 sm:px-6 lg:px-8 py-8 md:py-12">
@@ -27,7 +21,9 @@ export default function ProfilePage() {
                         <div className="flex flex-col md:flex-row md:items-end gap-6">
                             {/* Name */}
                             <div className="pb-2">
-                                <h1 className="text-3xl md:text-4xl font-bold text-white mb-2">{user.name}</h1>
+                                <h1 className="text-3xl md:text-4xl font-bold text-white mb-2">
+                                    {user.name}
+                                </h1>
                             </div>
                         </div>
 
@@ -51,17 +47,17 @@ export default function ProfilePage() {
                 {/* Contact Information */}
                 <div className="bg-secondary backdrop-blur-sm rounded-2xl shadow-xl border border-white/10 p-6 md:p-8">
                     <h2 className="text-xl font-bold text-white mb-6">Informações</h2>
-                        <div className="space-y-4">
-                            <div className="flex items-center gap-4 text-gray-300">
-                                <div className="bg-gray-700/50 p-3 rounded-lg">
-                                    <FaEnvelope size={20} className="text-white" />
-                                </div>
-
-                                <div>
-                                    <div className="text-sm text-gray-400">Email</div>
-                                    <div className="font-medium">{user.email}</div>
-                                </div>
+                    <div className="space-y-4">
+                        <div className="flex items-center gap-4 text-gray-300">
+                            <div className="bg-gray-700/50 p-3 rounded-lg">
+                                <FaEnvelope size={20} className="text-white" />
                             </div>
+
+                            <div>
+                                <div className="text-sm text-gray-400">Email</div>
+                                <div className="font-medium">{user.email}</div>
+                            </div>
+                        </div>
                         <div className="flex items-center gap-4 text-gray-300">
                             <div className="bg-gray-700/50 p-3 rounded-lg">
                                 <FaCalendar size={20} className="text-white" />
@@ -81,20 +77,50 @@ export default function ProfilePage() {
                     <div className="space-y-3">
                         <button className="w-full flex items-center justify-between bg-gray-700/30 hover:bg-gray-700/50 text-white px-5 py-4 rounded-lg transition-all duration-300 hover:scale-[1.02] hover:cursor-pointer">
                             <span className="font-medium">Privacidade e Segurança</span>
-                            <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                            <svg
+                                className="w-5 h-5"
+                                fill="none"
+                                stroke="currentColor"
+                                viewBox="0 0 24 24"
+                            >
+                                <path
+                                    strokeLinecap="round"
+                                    strokeLinejoin="round"
+                                    strokeWidth={2}
+                                    d="M9 5l7 7-7 7"
+                                />
                             </svg>
                         </button>
                         <button className="w-full flex items-center justify-between bg-gray-700/30 hover:bg-gray-700/50 text-white px-5 py-4 rounded-lg transition-all duration-300 hover:scale-[1.02] hover:cursor-pointer">
                             <span className="font-medium">Notificações</span>
-                            <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                            <svg
+                                className="w-5 h-5"
+                                fill="none"
+                                stroke="currentColor"
+                                viewBox="0 0 24 24"
+                            >
+                                <path
+                                    strokeLinecap="round"
+                                    strokeLinejoin="round"
+                                    strokeWidth={2}
+                                    d="M9 5l7 7-7 7"
+                                />
                             </svg>
                         </button>
                         <button className="w-full flex items-center justify-between bg-gray-700/30 hover:bg-gray-700/50 text-white px-5 py-4 rounded-lg transition-all duration-300 hover:scale-[1.02] hover:cursor-pointer">
                             <span className="font-medium">Preferências</span>
-                            <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                            <svg
+                                className="w-5 h-5"
+                                fill="none"
+                                stroke="currentColor"
+                                viewBox="0 0 24 24"
+                            >
+                                <path
+                                    strokeLinecap="round"
+                                    strokeLinejoin="round"
+                                    strokeWidth={2}
+                                    d="M9 5l7 7-7 7"
+                                />
                             </svg>
                         </button>
                         <button className="w-full flex items-center justify-between bg-red-900/30 hover:bg-red-900/50 text-red-300 px-5 py-4 rounded-lg transition-all duration-300 hover:scale-[1.02] mt-6 border border-red-500/20 hover:cursor-pointer">
@@ -107,5 +133,5 @@ export default function ProfilePage() {
                 </div>
             </div>
         </div>
-    )
+    );
 }

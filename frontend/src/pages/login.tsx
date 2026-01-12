@@ -6,7 +6,7 @@ import { authService } from '../core/services/auth-services';
 export default function AuthPage() {
     const [isLogin, setIsLogin] = useState<boolean>(true);
     const [formData, setFormData] = useState<AuthPayload>({
-        email: '', 
+        email: '',
         name: '',
         last_name: '',
         password: '',
@@ -30,19 +30,26 @@ export default function AuthPage() {
             <div className="hidden lg:flex w-1/2 flex-col justify-center items-center relative z-10 p-12">
                 <div className="max-w-lg text-center space-y-8">
                     <h1 className="text-5xl font-bold text-white tracking-tight">
-                        Domine suas <span className="text-transparent bg-clip-text bg-linear-to-r from-blue-400 to-purple-500">Finanças</span>
+                        Domine suas{' '}
+                        <span className="text-transparent bg-clip-text bg-linear-to-r from-blue-400 to-purple-500">
+                            Finanças
+                        </span>
                     </h1>
-                
+
                     <p className="text-gray-400 text-lg leading-relaxed">
-                        De "Malabarista de Boletos" a "Império Pixy". 
-                        Transforme sua gestão financeira em um jogo onde você sempre ganha.
+                        De "Malabarista de Boletos" a "Império Pixy". Transforme sua gestão
+                        financeira em um jogo onde você sempre ganha.
                     </p>
 
                     <div className="mt-12 p-4 bg-gray-800/60 border border-white/10 rounded-xl backdrop-blur-md flex items-center gap-4 transform -rotate-6 hover:rotate-0 transition-all duration-500 cursor-default max-w-xs mx-auto">
                         <div className="bg-yellow-500/20 p-3 rounded-lg text-yellow-400">🔥</div>
                         <div className="text-left">
-                            <div className="text-white font-bold text-sm">Conquista Desbloqueada</div>
-                            <div className="text-gray-400 text-xs">Mestre da Economia • Nível 4</div>
+                            <div className="text-white font-bold text-sm">
+                                Conquista Desbloqueada
+                            </div>
+                            <div className="text-gray-400 text-xs">
+                                Mestre da Economia • Nível 4
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -55,22 +62,20 @@ export default function AuthPage() {
                             <button
                                 onClick={() => setIsLogin(true)}
                                 className={`flex-1 py-3 text-sm font-medium rounded-xl transition-all duration-300 ${
-                                    isLogin 
-                                        ? 'bg-gray-700/50 text-white shadow-lg' 
+                                    isLogin
+                                        ? 'bg-gray-700/50 text-white shadow-lg'
                                         : 'text-gray-400 hover:text-white hover:bg-white/5'
-                                    }`
-                                }
+                                }`}
                             >
                                 Entrar
                             </button>
                             <button
                                 onClick={() => setIsLogin(false)}
                                 className={`flex-1 py-3 text-sm font-medium rounded-xl transition-all duration-300 ${
-                                    !isLogin 
-                                        ? 'bg-gray-700/50 text-white shadow-lg' 
+                                    !isLogin
+                                        ? 'bg-gray-700/50 text-white shadow-lg'
                                         : 'text-gray-400 hover:text-white hover:bg-white/5'
-                                    }`
-                                }
+                                }`}
                             >
                                 Cadastrar
                             </button>
@@ -82,7 +87,9 @@ export default function AuthPage() {
                                     {isLogin ? 'Bem-vindo de volta!' : 'Comece sua jornada'}
                                 </h2>
                                 <p className="text-gray-400 text-sm">
-                                    {isLogin ? 'Acesse seu painel e verifique seu progresso.' : 'Crie sua conta e comece a subir de nível.'}
+                                    {isLogin
+                                        ? 'Acesse seu painel e verifique seu progresso.'
+                                        : 'Crie sua conta e comece a subir de nível.'}
                                 </p>
                             </div>
 
@@ -119,7 +126,6 @@ export default function AuthPage() {
                                         </div>
                                     </>
                                 )}
-                                
 
                                 <div className="group">
                                     <div className="relative">
@@ -153,7 +159,10 @@ export default function AuthPage() {
 
                                 {isLogin && (
                                     <div className="flex justify-end">
-                                        <a href="#" className="text-sm text-gray-400 hover:text-white transition-colors">
+                                        <a
+                                            href="#"
+                                            className="text-sm text-gray-400 hover:text-white transition-colors"
+                                        >
                                             Esqueceu a senha?
                                         </a>
                                     </div>
@@ -170,7 +179,7 @@ export default function AuthPage() {
 
                             <div className="my-8 flex items-center gap-4">
                                 <div className="h-px bg-white/10 flex-1" />
-                                    <span className="text-gray-500 text-sm">ou continue com</span>
+                                <span className="text-gray-500 text-sm">ou continue com</span>
                                 <div className="h-px bg-white/10 flex-1" />
                             </div>
 
@@ -178,7 +187,6 @@ export default function AuthPage() {
                                 <FaGoogle className="text-gray-400 group-hover:text-white transition-colors" />
                                 <span>Google</span>
                             </button>
-
                         </div>
                     </div>
                     <p className="text-center text-gray-500 text-sm mt-8">

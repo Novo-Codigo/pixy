@@ -1,7 +1,7 @@
-import axios from "axios";
-import CORE_CONSTANTS from "../utils/constants";
-import USER_CONSTANTS from "../../user/utils/constants";
-import { authService } from "./auth-services";
+import axios from 'axios';
+import CORE_CONSTANTS from '../utils/constants';
+import USER_CONSTANTS from '../../user/utils/constants';
+import { authService } from './auth-services';
 
 export const api = axios.create({
     baseURL: CORE_CONSTANTS.baseURL,
@@ -21,7 +21,7 @@ api.interceptors.request.use(
     },
     (error) => {
         return Promise.reject(error);
-    }
+    },
 );
 
 api.interceptors.response.use(
@@ -37,11 +37,11 @@ api.interceptors.response.use(
             try {
                 const refresh = localStorage.getItem(USER_CONSTANTS.refresh);
 
-                if (!refresh) throw new Error("No refresh token!");
+                if (!refresh) throw new Error('No refresh token!');
 
                 const { data } = await axios.post(`${CORE_CONSTANTS.baseURL}/refresh/`, {
-                    refresh: refresh
-                })
+                    refresh: refresh,
+                });
 
                 const newAccessToken = data.access;
 
@@ -58,5 +58,5 @@ api.interceptors.response.use(
         }
 
         return Promise.reject(error);
-    }
+    },
 );
