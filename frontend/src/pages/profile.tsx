@@ -1,13 +1,38 @@
 'use client';
 
 import { FaEnvelope, FaCalendar, FaEdit, FaCog, FaSignOutAlt } from 'react-icons/fa';
+import { authService } from '../core/services/auth-services';
+import { useEffect, useState } from 'react';
+import { type User } from '../user/types/user.types';
+import { useNavigate } from 'react-router-dom';
+import Spinner from '../core/components/spinner';
 
 export default function ProfilePage() {
-    const user = {
-        name: 'Maria Silva',
-        email: 'maria.silva@email.com',
-        joinDate: 'Janeiro 2024',
-    };
+    const [user, setUser] = useState<User | null>(null);
+    const [isLoading, setIsLoading] = useState<boolean>(true);
+    const navigate = useNavigate();
+
+    useEffect(() => {
+        (async () => {
+            try {
+                const data = await authService.getProfile();
+                setUser(data);
+            } catch {
+                navigate("/registration");
+            } finally {
+                setIsLoading(false);
+            }
+        })();
+    }, []);
+
+    function handleLogout() {
+        authService.logout();
+        return;
+    }
+
+    if (isLoading) return <Spinner />
+
+    if (!user) return null;
 
     return (
         <div className="bg-linear-to-br from-gray-900 via-gray-800 to-gray-900 w-full min-h-screen mx-auto px-4 sm:px-6 lg:px-8 py-8 md:py-12">
@@ -22,7 +47,7 @@ export default function ProfilePage() {
                             {/* Name */}
                             <div className="pb-2">
                                 <h1 className="text-3xl md:text-4xl font-bold text-white mb-2">
-                                    {user.name}
+                                    {user.name} {" "} {user.last_name}
                                 </h1>
                             </div>
                         </div>
@@ -63,10 +88,12 @@ export default function ProfilePage() {
                                 <FaCalendar size={20} className="text-white" />
                             </div>
 
-                            <div>
-                                <div className="text-sm text-gray-400">Entrou em</div>
-                                <div className="font-medium">{user.joinDate}</div>
-                            </div>
+                            {user.date_joined && (
+                                <div>
+                                    <div className="text-sm text-gray-400">Entrou em</div>
+                                    <div className="font-medium">{new Date(user.date_joined).toLocaleDateString("pt-BR")}</div>
+                                </div>
+                            )}
                         </div>
                     </div>
                 </div>
@@ -123,7 +150,9 @@ export default function ProfilePage() {
                                 />
                             </svg>
                         </button>
-                        <button className="w-full flex items-center justify-between bg-red-900/30 hover:bg-red-900/50 text-red-300 px-5 py-4 rounded-lg transition-all duration-300 hover:scale-[1.02] mt-6 border border-red-500/20 hover:cursor-pointer">
+                        <button className="w-full flex items-center justify-between bg-red-900/30 hover:bg-red-900/50 text-red-300 px-5 py-4 rounded-lg transition-all duration-300 hover:scale-[1.02] mt-6 border border-red-500/20 hover:cursor-pointer"
+                            onClick={handleLogout}
+                        >
                             <span className="font-medium flex items-center gap-2">
                                 <FaSignOutAlt size={16} />
                                 Sair da Conta
