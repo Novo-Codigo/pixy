@@ -5,8 +5,15 @@ import { authService } from '../core/services/auth-services';
 import { useNavigate } from 'react-router-dom';
 import type { AxiosError } from 'axios';
 
+type State = 
+    | { status: 'idle' }
+    | { status: 'loading' }
+    | { status: 'error'; message: string }
+    | { status: 'success' };
+
 export default function AuthPage() {
     const navigation = useNavigate();
+    const [state, setState] = useState<State>({ status: 'idle' });
     const [isLogin, setIsLogin] = useState<boolean>(true);
     const [formData, setFormData] = useState<AuthPayload>({
         email: '',
@@ -14,34 +21,55 @@ export default function AuthPage() {
         last_name: '',
         password: '',
     });
-    const [error, setError] = useState<Record<string, string> | null>(null);
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-        setError(null);
+        setState({ status: 'idle' });
         setFormData({ ...formData, [e.target.name]: e.target.value });
     };
 
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
+        setState({
+            status: 'loading'
+        });
+
         if (isLogin) {
             try {
                 await authService.login(formData);
                 navigation('/');
             } catch (error: AxiosError | any) {
-                console.warn(error);
-                
                 if (error.name === 'AxiosError') {
-                    setError({
-                        "general": "Problemas no servidor. Desculpas!"
+                    setState({
+                        status: 'error',
+                        message: "Problemas no servidor. Desculpas!"
                     });
                 } else {
-                    setError({
-                        "general": "Senha e/ou e-mail inválidos."
+                    setState({
+                        status: 'error',
+                        message: "Senha e/ou e-mail inválidos."
                     });
                 }
             }
         }
-        else await authService.register(formData);
+        else {
+            try {
+                await authService.register(formData);
+                setIsLogin(true);
+                setState({
+                    status: 'idle'
+                });
+                setFormData({
+                    email: formData.email,
+                    password: ''
+                });
+            } catch (error) {
+                console.warn(error);
+                setState({
+                    status: 'error',
+                    message: "Erro ao criar a conta. Tente novamente."
+                });
+            }
+        }
     };
 
     return (
@@ -150,8 +178,8 @@ export default function AuthPage() {
                                 )}
 
                                 <div className="group">
-                                    {error && error["general"] && (
-                                        <p className="text-red-500 text-sm mb-2">{error["general"]}</p>
+                                    {state.status === 'error' && (
+                                        <p className="text-red-500 text-sm mb-2">{state.message}</p>
                                     )}
                                     <div className="relative">
                                         <div className="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
@@ -197,8 +225,14 @@ export default function AuthPage() {
                                     type="submit"
                                     className="w-full bg-linear-to-r from-blue-600 to-purple-600 hover:from-blue-500 hover:to-purple-500 text-white font-bold py-4 rounded-xl shadow-lg transform transition-all duration-300 hover:scale-[1.02] hover:shadow-blue-500/25 flex items-center justify-center gap-2 cursor-pointer"
                                 >
-                                    {isLogin ? 'Entrar no Sistema' : 'Criar Conta Grátis'}
-                                    <FaArrowRight size={14} />
+                                    {state.status === 'loading' ? (
+                                        <div className="w-5 h-5 border-2 border-white border-t-transparent rounded-full animate-spin" />
+                                    ) : (
+                                        <>
+                                            {isLogin ? 'Entrar no Sistema' : 'Criar Conta Grátis'}
+                                            <FaArrowRight size={14} />
+                                        </>
+                                    )}
                                 </button>
                             </form>
 
