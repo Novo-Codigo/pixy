@@ -5,7 +5,7 @@ import { authService } from '../core/services/auth-services';
 import { useNavigate } from 'react-router-dom';
 import type { AxiosError } from 'axios';
 
-type State = 
+type State =
     | { status: 'idle' }
     | { status: 'loading' }
     | { status: 'error'; message: string }
@@ -30,7 +30,7 @@ export default function AuthPage() {
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
         setState({
-            status: 'loading'
+            status: 'loading',
         });
 
         if (isLogin) {
@@ -41,32 +41,31 @@ export default function AuthPage() {
                 if (error.name === 'AxiosError') {
                     setState({
                         status: 'error',
-                        message: "Problemas no servidor. Desculpas!"
+                        message: 'Problemas no servidor. Desculpas!',
                     });
                 } else {
                     setState({
                         status: 'error',
-                        message: "Senha e/ou e-mail inválidos."
+                        message: 'Senha e/ou e-mail inválidos.',
                     });
                 }
             }
-        }
-        else {
+        } else {
             try {
                 await authService.register(formData);
                 setIsLogin(true);
                 setState({
-                    status: 'idle'
+                    status: 'idle',
                 });
                 setFormData({
                     email: formData.email,
-                    password: ''
+                    password: '',
                 });
             } catch (error) {
                 console.warn(error);
                 setState({
                     status: 'error',
-                    message: "Erro ao criar a conta. Tente novamente."
+                    message: 'Erro ao criar a conta. Tente novamente.',
                 });
             }
         }

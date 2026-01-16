@@ -18,7 +18,7 @@ export default function ProfilePage() {
                 const data = await authService.getProfile();
                 setUser(data);
             } catch {
-                navigate("/registration");
+                navigate('/registration');
             } finally {
                 setIsLoading(false);
             }
@@ -27,10 +27,11 @@ export default function ProfilePage() {
 
     function handleLogout() {
         authService.logout();
+        navigate('/registration');
         return;
     }
 
-    if (isLoading) return <Spinner />
+    if (isLoading) return <Spinner />;
 
     if (!user) return null;
 
@@ -47,7 +48,7 @@ export default function ProfilePage() {
                             {/* Name */}
                             <div className="pb-2">
                                 <h1 className="text-3xl md:text-4xl font-bold text-white mb-2">
-                                    {user.name} {" "} {user.last_name}
+                                    {user.name} {user.last_name}
                                 </h1>
                             </div>
                         </div>
@@ -91,7 +92,9 @@ export default function ProfilePage() {
                             {user.date_joined && (
                                 <div>
                                     <div className="text-sm text-gray-400">Entrou em</div>
-                                    <div className="font-medium">{new Date(user.date_joined).toLocaleDateString("pt-BR")}</div>
+                                    <div className="font-medium">
+                                        {new Date(user.date_joined).toLocaleDateString('pt-BR')}
+                                    </div>
                                 </div>
                             )}
                         </div>
@@ -150,7 +153,8 @@ export default function ProfilePage() {
                                 />
                             </svg>
                         </button>
-                        <button className="w-full flex items-center justify-between bg-red-900/30 hover:bg-red-900/50 text-red-300 px-5 py-4 rounded-lg transition-all duration-300 hover:scale-[1.02] mt-6 border border-red-500/20 hover:cursor-pointer"
+                        <button
+                            className="w-full flex items-center justify-between bg-red-900/30 hover:bg-red-900/50 text-red-300 px-5 py-4 rounded-lg transition-all duration-300 hover:scale-[1.02] mt-6 border border-red-500/20 hover:cursor-pointer"
                             onClick={handleLogout}
                         >
                             <span className="font-medium flex items-center gap-2">

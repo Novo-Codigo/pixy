@@ -32,7 +32,8 @@ export const authService = {
             localStorage.setItem(USER_CONSTANTS.name, data.name);
             localStorage.setItem(USER_CONSTANTS.email, data.email);
             localStorage.setItem(USER_CONSTANTS.last_name, data.last_name);
-            if (data.date_joined) localStorage.setItem(USER_CONSTANTS.date_joined, data.date_joined);
+            if (data.date_joined)
+                localStorage.setItem(USER_CONSTANTS.date_joined, data.date_joined);
             if (data.updated_at) localStorage.setItem(USER_CONSTANTS.updated_at, data.updated_at);
 
             return data;
@@ -40,16 +41,17 @@ export const authService = {
             const name = localStorage.getItem(USER_CONSTANTS.name);
             const email = localStorage.getItem(USER_CONSTANTS.email);
             const last_name = localStorage.getItem(USER_CONSTANTS.last_name);
-            const date_joined = localStorage.getItem(USER_CONSTANTS.date_joined) ?? "";
-            const updated_at = localStorage.getItem(USER_CONSTANTS.updated_at) ?? "";
+            const date_joined = localStorage.getItem(USER_CONSTANTS.date_joined) ?? '';
+            const updated_at = localStorage.getItem(USER_CONSTANTS.updated_at) ?? '';
 
-            if (name) return {
-                name,
-                last_name,
-                email,
-                date_joined,
-                updated_at
-            } as User;
+            if (name)
+                return {
+                    name,
+                    last_name,
+                    email,
+                    date_joined,
+                    updated_at,
+                } as User;
 
             throw error;
         }
