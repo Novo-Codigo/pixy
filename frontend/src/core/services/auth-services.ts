@@ -5,25 +5,25 @@ import { api } from './api';
 
 export const authService = {
     login: async (credentials: any) => {
-        const { data } = await api.post<LoginResponse>('/login/', credentials);
+        localStorage.clear();
+        try {
+            const { data } = await api.post<LoginResponse>('/login/', credentials);
 
-        if (data.access) {
             localStorage.setItem(USER_CONSTANTS.access, data.access);
             localStorage.setItem(USER_CONSTANTS.refresh, data.refresh);
-        }
 
-        window.location.href = '/';
-        return data;
+            return data;
+        } catch (error) {
+            throw error;
+        }
     },
     register: async (payload: AuthPayload) => {
         const { data } = await api.post('/users/', payload);
 
-        window.location.href = '/registration';
         return data;
     },
     logout: () => {
         localStorage.clear();
-        window.location.href = '/registration';
     },
     getProfile: async (): Promise<User> => {
         try {

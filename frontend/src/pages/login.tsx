@@ -2,8 +2,11 @@ import React, { useState } from 'react';
 import { FaEnvelope, FaLock, FaUser, FaGoogle, FaArrowRight } from 'react-icons/fa';
 import type { AuthPayload } from '../core/types/api.types';
 import { authService } from '../core/services/auth-services';
+import { useNavigate } from 'react-router-dom';
+import type { AxiosError } from 'axios';
 
 export default function AuthPage() {
+    const navigation = useNavigate();
     const [isLogin, setIsLogin] = useState<boolean>(true);
     const [formData, setFormData] = useState<AuthPayload>({
         email: '',
@@ -11,15 +14,34 @@ export default function AuthPage() {
         last_name: '',
         password: '',
     });
+    const [error, setError] = useState<Record<string, string> | null>(null);
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        setError(null);
         setFormData({ ...formData, [e.target.name]: e.target.value });
     };
 
-    const handleSubmit = (e: React.FormEvent) => {
-        if (isLogin) authService.login(formData);
-        else authService.register(formData);
+    const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
+        if (isLogin) {
+            try {
+                await authService.login(formData);
+                navigation('/');
+            } catch (error: AxiosError | any) {
+                console.warn(error);
+                
+                if (error.name === 'AxiosError') {
+                    setError({
+                        "general": "Problemas no servidor. Desculpas!"
+                    });
+                } else {
+                    setError({
+                        "general": "Senha e/ou e-mail inválidos."
+                    });
+                }
+            }
+        }
+        else await authService.register(formData);
     };
 
     return (
@@ -128,6 +150,9 @@ export default function AuthPage() {
                                 )}
 
                                 <div className="group">
+                                    {error && error["general"] && (
+                                        <p className="text-red-500 text-sm mb-2">{error["general"]}</p>
+                                    )}
                                     <div className="relative">
                                         <div className="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
                                             <FaEnvelope className="text-gray-500 group-focus-within:text-blue-400 transition-colors" />
