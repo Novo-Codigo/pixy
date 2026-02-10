@@ -1,7 +1,4 @@
 """Configuration file for user views"""
-
-from drf_yasg import openapi
-from drf_yasg.utils import swagger_auto_schema
 from rest_framework import status, viewsets
 from rest_framework.decorators import action
 from rest_framework.response import Response
@@ -21,75 +18,6 @@ class PixyUserViewSet(viewsets.ModelViewSet): # pylint: disable=missing-class-do
 
         return super().get_permissions()
 
-    @swagger_auto_schema(
-        method='get',
-        operation_description='Endpoint for returning authenticated user\'s data.',
-        responses={
-            200: PixyUserSerializer(),
-            401: openapi.Response(
-                description='Unauthorized fetch. User must be authenticated.',
-                examples={
-                    "application/json": {
-                        "detail": "Authentication credentials were not provided.",
-                    },
-                },
-            ),
-        },
-    )
-    @swagger_auto_schema(
-        method='patch',
-        operation_description='Endpoint for updating authenticated user\'s data.',
-        request_body=PixyUserSerializer,
-        responses={
-            200: PixyUserSerializer(),
-            400: openapi.Response(
-                description="Bad request.",
-                examples={
-                    "application/json": {
-                        "name": [
-                            "Name must have at least 3 characters."
-                        ]
-                    }
-                }
-            ),
-            401: openapi.Response(
-                description='Unathorized fetch. User must be authenticated.',
-                examples={
-                    "application/json": {
-                        "detail": "Authentication credentials were not provided.",
-                    },
-                },
-            ),
-        },
-    )
-    @swagger_auto_schema(
-        method='delete',
-        operation_description='Endpoint for deleting all authenticated user\'s data.',
-        request_body=DeleteAccountSerializer,
-        responses={
-            204: openapi.Response(
-                description="Successful deleted.",
-            ),
-            400: openapi.Response(
-                description="Bad request.",
-                examples={
-                    "application/json": {
-                        "password": [
-                            "Password missing or incorrect."
-                        ]
-                    }
-                }
-            ),
-            401: openapi.Response(
-                description='Unathorized fetch. User must be authenticated.',
-                examples={
-                    "application/json": {
-                        "detail": "Authentication credentials were not provided.",
-                    },
-                },
-            ),
-        },
-    )
     @action(
         detail=False,
         methods=['get', 'patch', 'delete'],
