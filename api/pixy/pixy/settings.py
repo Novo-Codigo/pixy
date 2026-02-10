@@ -36,7 +36,7 @@ INSTALLED_APPS = [
     'django.contrib.postgres',
     'corsheaders',
     'rest_framework',
-    'drf_yasg',
+    'drf_spectacular',
     'user'
 ]
 
@@ -128,6 +128,7 @@ REST_FRAMEWORK = {
     "DEFAULT_PERMISSION_CLASSES": [
         "rest_framework.permissions.IsAuthenticated",
     ],
+    "DEFAULT_SCHEMA_CLASS": 'drf_spectacular.openapi.AutoSchema',
 }
 
 SIMPLE_JWT = {
@@ -135,6 +136,13 @@ SIMPLE_JWT = {
     "REFRESH_TOKEN_LIFETIME": timedelta(days=2),
     "ROTATE_REFRESH_TOKENS": False,
     "BLACKLIST_AFTER_ROTATION": False,
+}
+
+SPECTACULAR_SETTINGS = {
+    'TITLE': 'Pixy API',
+    'DESCRIPTION': 'API for pixy\'s app',
+    'VERSION': '1.0.0',
+    'SERVER_INCLUDE_SCHEMA': False
 }
 
 SWAGGER_SETTINGS = {
