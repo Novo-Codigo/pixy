@@ -1,0 +1,23 @@
+@import "tailwindcss";
+
+
+
+:root {
+  --color-container: #f5f0eb;
+  --color-text: #0e2e4f;
+}
+
+p {
+  color: var(--color-text);
+}
+
+.container {
+  background-color: var(--color-container);
+}
+
+.row-flex-gap {
+  display: flex;
+  flex-direction: row;
+  gap: 0.5rem;
+  align-items: center;
+}
